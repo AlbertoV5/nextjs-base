@@ -1,29 +1,141 @@
-import Image from 'next/image'
-import { Inter } from 'next/font/google'
-import { Button } from '@/components/ui/button'
+import { Metadata } from "next"
+import Image from "next/image"
+import { PlusCircledIcon } from "@radix-ui/react-icons"
 
-const inter = Inter({ subsets: ['latin'] })
+import { Button } from "@/components/new-york/ui/button"
+import { ScrollArea, ScrollBar } from "@/components/new-york/ui/scroll-area"
+import { Separator } from "@/components/new-york/ui/separator"
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "@/components/new-york/ui/tabs"
 
-export default function Home() {
+import { AlbumArtwork } from "./components/album-artwork"
+import { Menu } from "./components/menu"
+import { PodcastEmptyPlaceholder } from "./components/podcast-empty-placeholder"
+import { Sidebar } from "./components/sidebar"
+import { listenNowAlbums, madeForYouAlbums } from "./data/albums"
+import { playlists } from "./data/playlists"
+
+export const metadata: Metadata = {
+  title: "Music App",
+  description: "Example music app using the components.",
+}
+
+export default function MusicPage() {
   return (
-    <main
-      className={`flex min-h-screen flex-col items-center justify-between p-24 ${inter.className}`}
-    >
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
+    <>
+      <div className="md:block">
+        <Menu />
+        <div className="border-t">
+          <div className="bg-background">
+            <div className="grid lg:grid-cols-5">
+              <Sidebar playlists={playlists} className="hidden lg:block" />
+              <div className="col-span-3 lg:col-span-4 lg:border-l">
+                <div className="h-full px-4 py-6 lg:px-8">
+                  <Tabs defaultValue="music" className="h-full space-y-6">
+                    <div className="space-between flex items-center">
+                      <TabsList>
+                        <TabsTrigger value="music" className="relative">
+                          Music
+                        </TabsTrigger>
+                        <TabsTrigger value="podcasts">Podcasts</TabsTrigger>
+                        <TabsTrigger value="live" disabled>
+                          Live
+                        </TabsTrigger>
+                      </TabsList>
+                      <div className="ml-auto mr-4">
+                        <Button>
+                          <PlusCircledIcon className="mr-2 h-4 w-4" />
+                          Add music
+                        </Button>
+                      </div>
+                    </div>
+                    <TabsContent
+                      value="music"
+                      className="border-none p-0 outline-none"
+                    >
+                      <div className="flex items-center justify-between">
+                        <div className="space-y-1">
+                          <h2 className="text-2xl font-semibold tracking-tight">
+                            Listen Now
+                          </h2>
+                          <p className="text-sm text-muted-foreground">
+                            Top picks for you. Updated daily.
+                          </p>
+                        </div>
+                      </div>
+                      <Separator className="my-4" />
+                      <div className="relative">
+                        <ScrollArea>
+                          <div className="flex space-x-4 pb-4">
+                            {listenNowAlbums.map((album) => (
+                              <AlbumArtwork
+                                key={album.name}
+                                album={album}
+                                className="w-[250px]"
+                                aspectRatio="portrait"
+                                width={250}
+                                height={330}
+                              />
+                            ))}
+                          </div>
+                          <ScrollBar orientation="horizontal" />
+                        </ScrollArea>
+                      </div>
+                      <div className="mt-6 space-y-1">
+                        <h2 className="text-2xl font-semibold tracking-tight">
+                          Made for You
+                        </h2>
+                        <p className="text-sm text-muted-foreground">
+                          Your personal playlists. Updated daily.
+                        </p>
+                      </div>
+                      <Separator className="my-4" />
+                      <div className="relative">
+                        <ScrollArea>
+                          <div className="flex space-x-4 pb-4">
+                            {madeForYouAlbums.map((album) => (
+                              <AlbumArtwork
+                                key={album.name}
+                                album={album}
+                                className="w-[150px]"
+                                aspectRatio="square"
+                                width={150}
+                                height={150}
+                              />
+                            ))}
+                          </div>
+                          <ScrollBar orientation="horizontal" />
+                        </ScrollArea>
+                      </div>
+                    </TabsContent>
+                    <TabsContent
+                      value="podcasts"
+                      className="h-full flex-col border-none p-0 data-[state=active]:flex"
+                    >
+                      <div className="flex items-center justify-between">
+                        <div className="space-y-1">
+                          <h2 className="text-2xl font-semibold tracking-tight">
+                            New Episodes
+                          </h2>
+                          <p className="text-sm text-muted-foreground">
+                            Your favorite podcasts. Updated daily.
+                          </p>
+                        </div>
+                      </div>
+                      <Separator className="my-4" />
+                      <PodcastEmptyPlaceholder />
+                    </TabsContent>
+                  </Tabs>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700/10 after:dark:from-sky-900 after:dark:via-[#0141ff]/40 before:lg:h-[360px]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-      <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-1 lg:text-left">
-        <Button>Ok</Button>
-      </div>
-    </main>
+    </>
   )
 }
