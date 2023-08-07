@@ -1,3 +1,3 @@
 # README
 
-UI Design Next JS Template v1.
+Dashboard UI Design Next JS Template v1.
