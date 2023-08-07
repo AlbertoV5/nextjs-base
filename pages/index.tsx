@@ -1,53 +1,37 @@
-import { Metadata } from "next"
-import Image from "next/image"
+import { Metadata } from 'next';
+import Image from 'next/image';
 
-import { Button } from "@/components/new-york/ui/button"
+import { Button } from '@/components/new-york/ui/button';
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/new-york/ui/card"
+} from '@/components/new-york/ui/card';
 import {
   Tabs,
   TabsContent,
   TabsList,
   TabsTrigger,
-} from "@/components/new-york/ui/tabs"
-import { CalendarDateRangePicker } from "@/components/app/date-range-picker"
-import { MainNav } from "@/components/app/main-nav"
-import { Overview } from "@/components/app/overview"
-import { RecentSales } from "@/components/app/recent-sales"
-import { Search } from "@/components/app/search"
-import TeamSwitcher from "@/components/app/team-switcher"
-import { UserNav } from "@/components/app/user-nav"
+} from '@/components/new-york/ui/tabs';
+import { CalendarDateRangePicker } from '@/components/app/date-range-picker';
+import { MainNav } from '@/components/app/main-nav';
+import { Overview } from '@/components/app/overview';
+import { RecentSales } from '@/components/app/recent-sales';
+import { Search } from '@/components/app/search';
+import TeamSwitcher from '@/components/app/team-switcher';
+import { UserNav } from '@/components/app/user-nav';
 
 export const metadata: Metadata = {
-  title: "Dashboard",
-  description: "Example dashboard app using the components.",
-}
+  title: 'Dashboard',
+  description: 'Example dashboard app using the components.',
+};
 
 export default function DashboardPage() {
   return (
     <>
-      <div className="md:hidden">
-        <Image
-          src="/examples/dashboard-light.png"
-          width={1280}
-          height={866}
-          alt="Dashboard"
-          className="block dark:hidden"
-        />
-        <Image
-          src="/examples/dashboard-dark.png"
-          width={1280}
-          height={866}
-          alt="Dashboard"
-          className="hidden dark:block"
-        />
-      </div>
-      <div className="hidden flex-col md:flex">
+      <div className="flex-col md:flex">
         <div className="border-b">
           <div className="flex h-16 items-center px-4">
             <TeamSwitcher />
@@ -209,5 +193,5 @@ export default function DashboardPage() {
         </div>
       </div>
     </>
-  )
+  );
 }
