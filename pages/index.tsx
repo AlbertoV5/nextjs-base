@@ -40,12 +40,12 @@ export default function Home() {
           <div className="grid grid-cols-2 gap-8 px-4 py-6 lg:py-8 md:grid-cols-4">
             {
               footerData.columns.map(c => (
-                <div>
+                <div key={c.title}>
                   <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">{c.title}</h2>
                   <ul className="text-gray-500 dark:text-gray-400 font-medium">
                       {
                         c.items.map(i => (
-                          <li className="mb-4">
+                          <li key={i.title} className="mb-4">
                             <a href={i.href} className=" hover:underline">{i.title}</a>
                           </li>
                         ))
