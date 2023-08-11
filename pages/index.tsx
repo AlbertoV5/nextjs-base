@@ -1,5 +1,5 @@
 import { NavigationMenuDemo } from '@/components/Nav'
-import footerData from "../data/footer.json"
+import footerData from "../data/footer_section.json"
 import heroData from "../data/hero_section.json"
 import navData from "../data/navigation_bar.json"
 
