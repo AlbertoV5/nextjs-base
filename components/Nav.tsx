@@ -13,55 +13,51 @@ import {
 } from "@/components/ui/navigation-menu"
 export interface IComponent { title: string; href: string; description: string };
 export interface INavData {
-  menu1: {title: string, items: IComponent[];}
-  menu2: {title: string, items: IComponent[];}
-  menu3: {title: string, href: string;}
+  dropdown_menus: {dropdown_title: string, dropdown_items: IComponent[];}[];
+  buttons: {title: string, href: string;}[];
 }
-export function NavigationMenuDemo({menu1, menu2, menu3}: INavData) {
+export function NavigationMenuDemo({dropdown_menus, buttons}: INavData) {
   return (
     <NavigationMenu>
       <NavigationMenuList>
-        <NavigationMenuItem>
-          <NavigationMenuTrigger>{menu1.title}</NavigationMenuTrigger>
-          <NavigationMenuContent>
-            <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
-            {
-                menu1.items.map((c) => (
-                  <ListItem
-                    key={c.title}
-                    title={c.title}
-                    href={c.href}
-                  >
-                    {c.description}
-                  </ListItem>
-                ))
-              }
-            </ul>
-          </NavigationMenuContent>
-        </NavigationMenuItem>
-        <NavigationMenuItem>
-          <NavigationMenuTrigger>{menu2.title}</NavigationMenuTrigger>
-          <NavigationMenuContent>
-            <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
-              {menu2.items.map((c) => (
-                <ListItem
-                  key={c.title}
-                  title={c.title}
-                  href={c.href}
-                >
-                  {c.description}
-                </ListItem>
-              ))}
-            </ul>
-          </NavigationMenuContent>
-        </NavigationMenuItem>
-        <NavigationMenuItem>
-          <Link href={menu3.href} legacyBehavior passHref>
-            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              {menu3.title}
-            </NavigationMenuLink>
-          </Link>
-        </NavigationMenuItem>
+        {
+          dropdown_menus.map((menu, index) => (
+            <NavigationMenuItem key={index}>
+              <NavigationMenuTrigger>{menu.dropdown_title}</NavigationMenuTrigger>
+              <NavigationMenuContent>
+                {/* grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] */}
+                <ul className={
+                  index % 2 === 0 
+                  ? "grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]"
+                  : "grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]"
+                }>
+                {
+                    menu.dropdown_items.map((c) => (
+                      <ListItem
+                        key={c.title}
+                        title={c.title}
+                        href={c.href}
+                      >
+                        {c.description}
+                      </ListItem>
+                    ))
+                  }
+                </ul>
+              </NavigationMenuContent>
+            </NavigationMenuItem>
+          ))
+        }
+        {
+          buttons.map((button, index) => (
+            <NavigationMenuItem key={index}>
+              <Link href={button.href} legacyBehavior passHref>
+                <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                  {button.title}
+                </NavigationMenuLink>
+              </Link>
+            </NavigationMenuItem>
+          ))
+        }
       </NavigationMenuList>
     </NavigationMenu>
   )
