@@ -1,7 +1,7 @@
 import { NavigationMenuDemo } from '@/components/Nav'
 import footerData from "../data/footer.json"
-import heroData from "../data/hero.json"
-import navData from "../data/nav.json"
+import heroData from "../data/hero_section.json"
+import navData from "../data/navigation_bar.json"
 
 export default function Home() {
   return (
